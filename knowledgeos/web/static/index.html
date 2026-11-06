@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KnowledgeOS AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="grid-lines"></div></div>
+
+<div class="app">
+  <!-- ===================== sidebar ===================== -->
+  <aside class="sidebar glass" id="sidebar">
+    <div class="brand">
+      <div class="logo">K</div>
+      <div><div class="brand-name">KnowledgeOS</div><div class="brand-sub" data-i18n="brandSub">Learn from your documents.</div></div>
+    </div>
+    <nav class="nav">
+      <button class="nav-item active" data-view="talk" id="nav-talk">
+        <svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3"/></svg>
+        <span data-i18n="navTalk">Talk</span></button>
+      <button class="nav-item" data-view="library" id="nav-library">
+        <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+        <span data-i18n="navLibrary">Library</span><span class="count" id="doc-count">0</span></button>
+      <button class="nav-item" data-view="study" id="nav-study">
+        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="14" rx="2"/><path d="M7 2h12a2 2 0 0 1 2 2v12"/></svg>
+        <span data-i18n="navStudy">Study</span></button>
+      <button class="nav-item" data-view="settings" id="nav-settings">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        <span data-i18n="navSettings">Settings</span></button>
+      <button class="nav-item" id="nav-guide">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3 6.3-2.1Z"/></svg>
+        <span data-i18n="navGuide">Guide</span></button>
+    </nav>
+    <div class="side-foot">
+      <div class="seg lang" data-lang-toggle><button data-lang="en" class="on">EN</button><button data-lang="hi">हि</button></div>
+      <div class="side-caption">KnowledgeOS AI · evidence-grounded</div>
+    </div>
+  </aside>
+
+  <!-- ===================== main ===================== -->
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn only-mobile" id="menu-btn" title="Menu"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <div class="spacer"></div>
+      <div class="pill" id="status-pill" title="Answer generation status"><span class="dot"></span><span id="status-text">…</span></div>
+      <div class="seg lang" data-lang-toggle id="lang-top"><button data-lang="en" class="on">EN</button><button data-lang="hi">हि</button></div>
+      <button class="icon-btn" id="theme-btn" title="Light / dark"><svg viewBox="0 0 24 24" id="theme-icon"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
+      <button class="icon-btn" id="speak-btn" title="Read answers aloud"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14" class="waves"/></svg></button>
+      <button class="icon-btn" id="help-btn" title="Guide"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg></button>
+    </header>
+
+    <!-- ---------- Talk ---------- -->
+    <section class="view active" id="view-talk">
+      <div class="talk">
+        <div class="hero" id="hero">
+          <div class="orb" id="orb"><div class="orb-ring r1"></div><div class="orb-ring r2"></div><div class="orb-core"></div></div>
+          <h1>KnowledgeOS AI</h1>
+          <div class="tagline" data-i18n="tagline">Your AI study assistant</div>
+          <p class="hero-sub" data-i18n="heroSub">Ask about your PDFs and notes — every answer shows the page it came from.</p>
+        </div>
+        <div class="messages" id="messages"></div>
+        <div class="chips" id="chips"></div>
+        <div class="voice-zone">
+          <button class="big-mic" id="big-mic" aria-label="Tap to talk">
+            <svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3"/></svg>
+          </button>
+          <div class="mic-label" id="mic-label">Tap to talk</div>
+        </div>
+        <div class="composer" id="composer">
+          <div class="input-pill">
+            <button class="in-btn" id="in-mic" title="Voice chat"><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3"/></svg></button>
+            <input id="q" autocomplete="off" placeholder="Type your question...">
+            <button class="in-btn" id="scope-btn" title="Choose which documents to search"><svg viewBox="0 0 24 24"><path d="M22 3H2l8 9.5V19l4 2v-8.5L22 3Z"/></svg><span class="badge" id="scope-badge" hidden></span></button>
+            <button class="in-btn" id="new-chat" title="New conversation"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <button class="send" id="send" title="Send"><svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg></button>
+          <div class="scope-pop glass" id="scope-pop" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- Library ---------- -->
+    <section class="view" id="view-library">
+      <div class="page">
+        <h2 data-i18n="libTitle">Your library</h2>
+        <p class="muted" data-i18n="libSub">Upload PDF, Word, Markdown, text, CSV or Excel files. They stay in this Colab session.</p>
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="file-input" multiple accept=".pdf,.docx,.txt,.md,.markdown,.csv,.xlsx">
+          <div class="dz-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div>
+          <div class="dz-title" data-i18n="dzTitle">Drop files here or click to upload</div>
+          <div class="dz-sub" id="dz-sub">PDF · DOCX · TXT · MD · CSV · XLSX</div>
+        </label>
+        <div class="progress-card glass" id="progress" hidden>
+          <div class="progress-head"><span id="progress-msg">Uploading…</span><span id="progress-pct">0%</span></div>
+          <div class="bar"><div id="progress-bar"></div></div>
+          <div class="muted small" data-i18n="progressHint">Large PDFs can take a few minutes on a free Colab CPU.</div>
+        </div>
+        <div class="doc-grid" id="doc-grid"></div>
+      </div>
+    </section>
+
+    <!-- ---------- Study ---------- -->
+    <section class="view" id="view-study">
+      <div class="page">
+        <h2 data-i18n="studyTitle">Study mode</h2>
+        <p class="muted" data-i18n="studySub">Pick a document and turn it into something you can learn from.</p>
+        <div class="field"><select id="study-doc"></select></div>
+        <div class="action-grid" id="action-grid"></div>
+        <div class="study-out" id="study-out"></div>
+      </div>
+    </section>
+
+    <!-- ---------- Settings ---------- -->
+    <section class="view" id="view-settings">
+      <div class="page narrow">
+        <h2 data-i18n="setTitle">Settings</h2>
+        <div class="card glass">
+          <h3>🤖 <span data-i18n="setAI">AI answers</span></h3>
+          <p class="muted small" data-i18n="setAIsub">Without an AI provider the app shows the most relevant passages. With one, it writes cited answers.</p>
+          <label class="lbl">Provider</label>
+          <select id="set-provider"></select>
+          <label class="lbl">Model</label>
+          <input id="set-model" placeholder="e.g. gemini-3.5-flash-lite">
+          <div id="base-wrap" hidden><label class="lbl">Base URL</label><input id="set-base" placeholder="https://api.openai.com/v1"></div>
+          <label class="lbl">API key <span class="muted small" id="key-state"></span></label>
+          <input id="set-key" type="password" placeholder="Paste key (kept in memory only)">
+          <div class="row"><button class="btn primary" id="set-save">Save</button><button class="btn" id="set-test">Test connection</button></div>
+          <div class="note" id="set-msg"></div>
+        </div>
+        <div class="card glass">
+          <h3>🎙️ <span data-i18n="setVoice">Voice</span></h3>
+          <label class="check"><input type="checkbox" id="opt-continuous" checked> <span data-i18n="optCont">Hands-free voice chat: keep listening after each answer</span></label>
+          <label class="check"><input type="checkbox" id="opt-speak" checked> <span data-i18n="optSpeak">Read answers aloud</span></label>
+          <label class="lbl"><span data-i18n="optRate">Speaking speed</span> <span id="rate-val">1.0×</span></label>
+          <input type="range" id="opt-rate" min="0.7" max="1.4" step="0.05" value="1">
+          <p class="muted small" data-i18n="voiceNote">Voice works best in Google Chrome or Edge. Allow microphone access when the browser asks.</p>
+        </div>
+        <div class="card glass">
+          <h3>🧭 <span data-i18n="navGuide">Guide</span></h3>
+          <div class="row"><button class="btn" id="set-guide" data-i18n="restartGuide">Restart the guided tour</button></div>
+          <p class="muted small" data-i18n="advNote">Evaluation lab, diagnostics and advanced retrieval settings are in the classic app (CELL 64).</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== source viewer ===================== -->
+  <aside class="viewer glass" id="viewer" aria-hidden="true">
+    <div class="viewer-head">
+      <div><div class="viewer-title" id="viewer-title">Source</div><div class="muted small" id="viewer-sub"></div></div>
+      <button class="icon-btn" id="viewer-close" title="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="viewer-body" id="viewer-body"></div>
+    <div class="viewer-foot">
+      <button class="btn small" id="pg-prev">◀</button>
+      <span id="pg-label">—</span>
+      <button class="btn small" id="pg-next">▶</button>
+      <button class="btn small" id="pg-home" title="Back to the cited page">⟲ <span data-i18n="cited">Cited page</span></button>
+    </div>
+  </aside>
+</div>
+
+<!-- guided tour -->
+<div class="tour" id="tour" hidden>
+  <div class="tour-spot" id="tour-spot"></div>
+  <div class="tour-card glass" id="tour-card" role="dialog" aria-live="polite">
+    <div class="tour-step" id="tour-step"></div>
+    <h3 id="tour-title"></h3>
+    <p id="tour-text"></p>
+    <div class="tour-dots" id="tour-dots"></div>
+    <div class="tour-actions">
+      <button class="btn ghost" id="tour-skip" data-i18n="skip">Skip tour</button>
+      <div class="spacer"></div>
+      <button class="btn" id="tour-back" data-i18n="back">Back</button>
+      <button class="btn primary" id="tour-next" data-i18n="next">Next</button>
+    </div>
+  </div>
+</div>
+<div class="lightbox" id="lightbox" hidden><img id="lightbox-img" alt="Page"></div>
+<div class="toast" id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
